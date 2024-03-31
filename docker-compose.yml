@@ -4,6 +4,9 @@ services:
   web:
     container_name: web
     image: jihwooon/devops-platform-frontend
+    build:
+      context: ./apps/web
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 3000:3000
@@ -12,6 +15,9 @@ services:
   api:
     container_name: api
     image: jihwooon/devops-platform-backend
+    build:
+      context: ./apps/api
+      dockerfile: ./Dockerfile
     restart: always
     ports:
       - 3031:3031
