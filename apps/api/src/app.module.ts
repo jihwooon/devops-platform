@@ -6,6 +6,7 @@ import { OctokitModule } from 'nestjs-octokit';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthController } from './health/health.controller';
+import { IssueController } from './issue/issue.controller';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { HealthController } from './health/health.controller';
       },
     }),
   ],
-  controllers: [AppController, HealthController],
+  controllers: [AppController, HealthController, IssueController],
   providers: [AppService],
 })
 export class AppModule {}
