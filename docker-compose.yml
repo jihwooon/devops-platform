@@ -2,7 +2,7 @@ version: "3"
 
 services:
   web:
-    container_name: web
+    container_name: devops-platform-web
     image: jihwooon/devops-platform-frontend
     build:
       context: .
@@ -13,7 +13,7 @@ services:
     networks:
       - app_network
   api:
-    container_name: api
+    container_name: devops-platform-api
     image: jihwooon/devops-platform-backend
     build:
       context: .
@@ -24,10 +24,11 @@ services:
     networks:
       - app_network
   swagger:
+    container_name: devops-platform-openapi
     image: swaggerapi/swagger-ui
-    container_name: openapi
     ports:
     - 8080:8080
+    restart: always
     environment:
      - URLS_PRIMARY_NAME=agenta
      - "URLS=[{ url: 'docs/openapi.yaml', name: 'agent' }]"
