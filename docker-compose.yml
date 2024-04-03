@@ -21,18 +21,22 @@ services:
     restart: always
     ports:
       - 3031:3031
+    env_file:
+      - ./apps/api/.env.prod
+    environment:
+      - NODE_ENV=prod
     networks:
       - app_network
   swagger:
     container_name: devops-platform-openapi
     image: swaggerapi/swagger-ui
     ports:
-    - 8080:8080
+      - 8080:8080
     restart: always
     environment:
-     - URLS_PRIMARY_NAME=agenta
-     - "URLS=[{ url: 'docs/openapi.yaml', name: 'agent' }]"
-     - SUPPORTED_SUBMIT_METHODS=['get']
+      - URLS_PRIMARY_NAME=agenta
+      - "URLS=[{ url: 'docs/openapi.yaml', name: 'agent' }]"
+      - SUPPORTED_SUBMIT_METHODS=['get']
     volumes:
       - ./docs:/usr/share/nginx/html/docs
 
