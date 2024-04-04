@@ -2,7 +2,9 @@ name: devops-plateform-frontend
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - "develop/**"
+      - "release/**"
     paths:
       - "apps/web/**"
 

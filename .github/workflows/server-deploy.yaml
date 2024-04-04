@@ -2,7 +2,9 @@ name: devops-plateform-server
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - "develop/**"
+      - "release/**"
     paths:
       - "apps/api/**"
 
