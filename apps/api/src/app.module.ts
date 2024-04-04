@@ -1,17 +1,14 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TerminusModule } from '@nestjs/terminus';
 import { OctokitModule } from 'nestjs-octokit';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HealthController } from './health/health.controller';
+import { HealthModule } from './health/health.module';
 import { IssueController } from './issue/issue.controller';
 
 @Module({
   imports: [
-    TerminusModule,
-    HttpModule,
+    HealthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
@@ -27,7 +24,7 @@ import { IssueController } from './issue/issue.controller';
       },
     }),
   ],
-  controllers: [AppController, HealthController, IssueController],
+  controllers: [AppController, IssueController],
   providers: [AppService],
 })
 export class AppModule {}
