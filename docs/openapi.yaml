@@ -1,41 +1,60 @@
 openapi: 3.0.3
 info:
-  title: Reviews
+  title: DevOps-Platform API
   version: 1.0.0
 servers:
-- url: https://farmstall.designapis.com/v1
+  - url: http://localhost:3031
 paths:
-  /reviews:
+  /health:
     get:
-      description: Get a bunch of reviews
-      parameters:
-      - name: maxRating
-        description: |
-          Filter the reviews
-          by the maximum rating
-        in: query
-        schema:
-          type: number
+      description: Get a health check
       responses:
         200:
-          description: A bunch of reviews
+          description: OK
+  /git/login:
+    get:
+      description: Get a login
+      responses:
+        200:
+          description: Git login
+  /git/repo:
+    get:
+      description: Get a repo Name
+      parameters:
+        - name: repo_name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The name of the repo
+      responses:
+        200:
+          description: Git repp Name
+  /git/repo/{repo_name}/issues/{issue_number}:
+    get:
+      description: Get a repo issue
+      parameters:
+        - name: repo_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the repo
+        - name: issue_number
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The issue number
+      responses:
+        200:
+          description: Git repo issue
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    uuid:
-                      type: string
-                      pattern: '^[0-9a-fA-F\-]{36}$'
-                    message:
-                      type: string
-                    rating:
-                      type: integer
-                      minimum: 1
-                      maximum: 5
-                    userId:
-                      type: string
-                      pattern: '^[0-9a-fA-F\-]{36}$'
-                      nullable: true
+                type: object
+                properties:
+                  title:
+                    type: string
+                  body:
+                    type: string
