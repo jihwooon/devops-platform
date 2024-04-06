@@ -53,5 +53,7 @@ USER nestjs
 # Copy the app folder
 COPY --from=installer /app .
 
+ENV PORT=30031 CORS_ALLOWED_ORIGIN=http://localhost:30000
+
 HEALTHCHECK CMD curl --fail http://localhost:30031/health || exit 1
 CMD pnpm run prod
