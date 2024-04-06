@@ -53,5 +53,5 @@ USER nestjs
 # Copy the app folder
 COPY --from=installer /app .
 
-HEALTHCHECK CMD curl --fail http://localhost:3031/health || exit 1
-CMD node apps/api/dist/src/main.js
+HEALTHCHECK CMD curl --fail http://localhost:30031/health || exit 1
+CMD pnpm run prod
