@@ -21,7 +21,7 @@ services:
       dockerfile: ./apps/api/Dockerfile
     restart: always
     ports:
-      - 3031:3031
+      - 30031:30031
     env_file:
       - ./apps/api/.env.prod
     environment:
