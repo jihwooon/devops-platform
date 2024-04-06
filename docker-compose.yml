@@ -15,6 +15,7 @@ services:
   api:
     container_name: devops-platform-api
     image: jihwooon/devops-platform-backend
+    platform: linux/amd64
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile
