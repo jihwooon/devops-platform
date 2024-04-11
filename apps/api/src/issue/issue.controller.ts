@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { OctokitService } from 'nestjs-octokit';
+import { IssueDto } from './dto/issue.dto';
 
 @Controller('git')
 export class IssueController {
@@ -45,22 +46,17 @@ export class IssueController {
   @Get('repo/:repo_name/issues/:issue_number')
   async getIssues(
     @Param('issue_number') issueNumber: string,
-    @Param('repo_name') repoName: string,
+    @Param('repo_name') request: string,
   ): Promise<any> {
     const owner = await this.getLogin();
-    const repo = await this.getRepo(repoName);
+    const repo = await this.getRepo(request);
 
-    const {
-      data: { title, body },
-    } = await this.octokitService.rest.issues.get({
+    const response = await this.octokitService.rest.issues.get({
       owner,
       repo,
       issue_number: parseInt(issueNumber),
     });
 
-    return {
-      title,
-      body,
-    };
+    return IssueDto.Response.of(response, owner);
   }
 }
