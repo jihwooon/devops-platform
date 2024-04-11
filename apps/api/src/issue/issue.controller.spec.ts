@@ -14,7 +14,7 @@ describe('IssueController', () => {
           getAuthenticated: () => {
             return Promise.resolve({
               data: {
-                login: 'github-username',
+                login: 'octocat',
               },
             });
           },
@@ -31,10 +31,26 @@ describe('IssueController', () => {
         issues: {
           get: () => {
             return Promise.resolve({
+              owner: 'octocat',
               data: {
                 title: 'issue-title',
-                body: 'issue-body',
+                body: 'Im having a problem with this.',
+                state: 'open',
+                labels: [
+                  {
+                    name: 'bug',
+                  },
+                  {
+                    name: 'documentation',
+                  },
+                ],
+                assignees: [
+                  {
+                    login: 'octocat',
+                  },
+                ],
               },
+              url: 'https://api.github.com/repos/octocat/Hello-World/issues/1347',
             });
           },
         },
@@ -58,7 +74,7 @@ describe('IssueController', () => {
     it('해당 로그인 아이디를 리턴한다', async () => {
       const login = await controller.getLogin();
 
-      expect(login).toBe('github-username');
+      expect(login).toBe('octocat');
     });
   });
 
@@ -75,8 +91,13 @@ describe('IssueController', () => {
       const issue = await controller.getIssues('1', 'github-repo');
 
       expect(issue).toEqual({
+        owner: 'octocat',
         title: 'issue-title',
-        body: 'issue-body',
+        body: 'Im having a problem with this.',
+        state: 'open',
+        url: 'https://api.github.com/repos/octocat/Hello-World/issues/1347',
+        labels: ['bug', 'documentation'],
+        assignees: ['octocat'],
       });
     });
   });
