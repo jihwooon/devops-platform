@@ -27,20 +27,15 @@ export class IssueResponseDto {
 
   static of(response: any, owner: string): IssueResponseDto {
     const labels: string[] = response.data.labels.map((label) => label.name);
-    labels.filter((label) => label !== '');
-
     if (labels.length === 0) {
-      labels.push('No labels exist.');
+      labels.push('No labels exist');
     }
 
     const assignees: string[] = response.data.assignees.map(
       (assignee) => assignee.login,
     );
-
-    assignees.filter((login) => login !== '');
-
     if (assignees.length === 0) {
-      assignees.push('No assignee is specified.');
+      assignees.push('No assignee is specified');
     }
 
     return {
