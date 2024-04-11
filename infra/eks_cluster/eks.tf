@@ -7,7 +7,7 @@ module "eks" {
   cluster_version = "1.28"
 
   vpc_id                         = aws_vpc.vpc.id
-  subnet_ids                     = [aws_subnet.private1.id,aws_subnet.private2.id]
+  subnet_ids                     = [aws_subnet.public1.id,aws_subnet.public2.id]
   cluster_endpoint_public_access = true
 
   eks_managed_node_group_defaults = {
