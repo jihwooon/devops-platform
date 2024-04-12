@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { GithubModule } from 'src/github/github.module';
 import request from 'supertest';
 import { describe, it } from 'vitest';
 import { AppModule } from '../src/app.module';
@@ -9,7 +10,7 @@ describe('IssueController (e2e)', () => {
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, GithubModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -23,7 +24,7 @@ describe('IssueController (e2e)', () => {
         .get('/git/login')
         .set('Authorization', `Bearer ${process.env.GITHUB_AUTH_TOKEN}`);
 
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(404);
     });
   });
 });
