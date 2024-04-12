@@ -5,7 +5,7 @@ import { IssueResponseDto } from './dto/issue.dto';
 
 @Controller('git')
 export class IssueController {
-  constructor(private readonly octokitService: OctokitService) {}
+  constructor(private octokitService: OctokitService) {}
 
   /**
    * 인증된 사용자의 로그인 이름을 가져옵니다.
