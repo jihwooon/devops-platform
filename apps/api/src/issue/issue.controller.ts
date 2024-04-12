@@ -1,5 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { OctokitService } from 'nestjs-octokit';
+import { IssueResponseDto } from './dto/issue.dto';
 
 @Controller('git')
 export class IssueController {
@@ -43,24 +45,26 @@ export class IssueController {
    * @returns 이슈의 제목을 포함한 객체입니다.
    */
   @Get('repo/:repo_name/issues/:issue_number')
+  @ApiOperation({
+    description: 'Returns information about an issue',
+  })
+  @ApiResponse({
+    status: 200,
+    type: IssueResponseDto,
+  })
   async getIssues(
     @Param('issue_number') issueNumber: string,
     @Param('repo_name') repoName: string,
-  ): Promise<any> {
+  ): Promise<IssueResponseDto> {
     const owner = await this.getLogin();
     const repo = await this.getRepo(repoName);
 
-    const {
-      data: { title, body },
-    } = await this.octokitService.rest.issues.get({
+    const response = await this.octokitService.rest.issues.get({
       owner,
       repo,
       issue_number: parseInt(issueNumber),
     });
 
-    return {
-      title,
-      body,
-    };
+    return IssueResponseDto.of(response, owner);
   }
 }
