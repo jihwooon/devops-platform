@@ -5,7 +5,7 @@ import "sanitize.css";
 function App() {
   return (
     <>
-      <Layout children={<Home/> }/>
+      <Layout children={<Home />} />
     </>
   );
 }
