@@ -1,4 +1,4 @@
-const { resolve } = require("node:path");
+const {resolve} = require("node:path");
 
 const project = resolve(process.cwd(), "tsconfig.json");
 
@@ -19,6 +19,7 @@ module.exports = {
     "@vercel/style-guide/eslint/react",
     "@vercel/style-guide/eslint/next",
     "eslint-config-turbo",
+    "jsx-a11y",
   ].map(require.resolve),
   parserOptions: {
     project,
@@ -36,6 +37,14 @@ module.exports = {
         extensions: [".mjs", ".js", ".jsx", ".ts", ".tsx"],
       },
     },
+    "jsx-a11y": {
+      "components": {
+        "CityInput": "input",
+        "CustomButton": "button",
+        "MyButton": "button",
+        "RoundButton": "button"
+      }
+    }
   },
   ignorePatterns: ["node_modules/", "dist/"],
   // add rules configurations here
