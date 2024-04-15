@@ -28,6 +28,18 @@ services:
       - NODE_ENV=prod
     networks:
       - app_network
+  vite:
+    container_name: devops-platform-vite
+    image: jihwooon/devops-platform-vite
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./apps/vite/Dockerfile
+    restart: always
+    ports:
+    - 4173:4173
+    networks:
+      - app_network
   swagger:
     container_name: devops-platform-openapi
     image: swaggerapi/swagger-ui
