@@ -1,9 +1,10 @@
 import Home from "./pages/Home.tsx";
+import Layout from "./components/layout/Layout.tsx";
 
 function App() {
   return (
     <>
-      <Home />
+      <Layout children={<Home/> }/>
     </>
   );
 }
